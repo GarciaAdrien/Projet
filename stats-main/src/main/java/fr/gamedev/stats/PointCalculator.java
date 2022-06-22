@@ -8,7 +8,7 @@ import fr.gamedev.stats.fixedSizeCoeficient.FscSlice;
 
 /**
  * Allow to calculate earned points based on rules.
- * 
+ *
  * @author djer13
  */
 public class PointCalculator {
@@ -31,11 +31,17 @@ public class PointCalculator {
     }
 
     private int fsc(int dataSource, boolean isFirstTime, short basePoints, short firstTimeBonus, RoundingMode roundMode,
-            Operator operator, SortedSet<FscSlice> slices) {
+                    Operator operator, SortedSet<FscSlice> slices) {
+
         int result = 0;
-
-        //TODO à implementer
-
+        if (isFirstTime) {
+            result += 100;
+        }
+        for (FscSlice slice : slices) {
+            if (dataSource < slice.getUpperBound()) {
+                result = roundMode.UP(dataSource * slice.getWeight())
+            }
+        }
         return result;
     }
 
