@@ -39,7 +39,12 @@ public class PointCalculator {
         }
         for (FscSlice slice : slices) {
             if (dataSource < slice.getUpperBound()) {
-                result = roundMode.UP(dataSource * slice.getWeight())
+                if (roundMode == RoundingMode.UP) {
+                    result += (int)(operator.apply(dataSource, slice.getWeight()) + 1);
+                }
+                if (roundMode == RoundingMode.DOWN) {
+                    result += (int)operator.apply(dataSource, slice.getWeight());
+                }
             }
         }
         return result;
