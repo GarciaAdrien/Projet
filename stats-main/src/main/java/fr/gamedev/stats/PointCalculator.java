@@ -35,15 +35,15 @@ public class PointCalculator {
 
         int result = 0;
         if (isFirstTime) {
-            result += 100;
+            result += firstTimeBonus;
         }
         for (FscSlice slice : slices) {
             if (dataSource < slice.getUpperBound()) {
                 if (roundMode == RoundingMode.UP) {
-                    result += (int)(operator.apply(dataSource, slice.getWeight()) + 1);
+                    result += (int)(operator.apply(basePoints, slice.getWeight()) + 1);
                 }
                 if (roundMode == RoundingMode.DOWN) {
-                    result += (int)operator.apply(dataSource, slice.getWeight());
+                    result += (int)operator.apply(basePoints, slice.getWeight());
                 }
             }
         }
